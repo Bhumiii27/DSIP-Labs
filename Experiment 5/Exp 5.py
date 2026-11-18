@@ -9,84 +9,149 @@ fft_result = np.fft.fft(signal)
 
 # Magnitude & Phase
 magnitude_spectrum = np.abs(fft_result)
+print("Magnitude Spectrum: ", magnitude_spectrum)
 phase_spectrum = np.angle(fft_result)
+print("Phase Spectrum: ", phase_spectrum)
 
 # IFFT
 reconstructed_signal = np.fft.ifft(fft_result)
+print("Reconstructed Signal: ", reconstructed_signal)
 
-# ------------------ Plot Functions ------------------
+# # ------------------ Plot Functions ------------------
+# def plot_original_signal(signal):
+#     plt.figure(figsize=(8,4))
+#     plt.stem(signal)
+#     plt.title("Original Signal")
+#     plt.xlabel("Sample Index")
+#     plt.ylabel("Amplitude")
+#     plt.grid()
+#     plt.show()
 
-def plot_original_signal(signal):
-    plt.figure(figsize=(8,4))
-    plt.stem(signal)
-    plt.title("Original Signal")
-    plt.xlabel("Sample Index")
-    plt.ylabel("Amplitude")
-    plt.grid()
-    plt.show()
+# def plot_magnitude_spectrum(magnitude_spectrum):
+#     plt.figure(figsize=(8,4))
+#     plt.stem(magnitude_spectrum)
+#     plt.title("Magnitude Spectrum")
+#     plt.xlabel("Frequency Index")
+#     plt.ylabel("Magnitude")
+#     plt.grid()
+#     plt.show()
 
-def plot_magnitude_spectrum(magnitude_spectrum):
-    plt.figure(figsize=(8,4))
-    plt.stem(magnitude_spectrum)
-    plt.title("Magnitude Spectrum")
-    plt.xlabel("Frequency Index")
-    plt.ylabel("Magnitude")
-    plt.grid()
-    plt.show()
+# def plot_phase_spectrum(phase_spectrum):
+#     plt.figure(figsize=(8,4))
+#     plt.stem(phase_spectrum)
+#     plt.title("Phase Spectrum")
+#     plt.xlabel("Frequency Index")
+#     plt.ylabel("Phase (Radians)")
+#     plt.grid()
+#     plt.show()
 
-def plot_phase_spectrum(phase_spectrum):
-    plt.figure(figsize=(8,4))
-    plt.stem(phase_spectrum)
-    plt.title("Phase Spectrum")
-    plt.xlabel("Frequency Index")
-    plt.ylabel("Phase (Radians)")
-    plt.grid()
-    plt.show()
+# # Real + Imaginary in ONE plot with data values
+# def plot_complex_signal(complex_signal):
+#     plt.figure(figsize=(10,5))
+#     x = np.arange(len(complex_signal))
 
-# Real + Imaginary in ONE plot with data values
-def plot_complex_signal(complex_signal):
-    plt.figure(figsize=(10,5))
-    x = np.arange(len(complex_signal))
+#     # Real Part
+#     plt.stem(x, np.real(complex_signal),
+#              linefmt='b-', markerfmt='bo', basefmt=" ")
 
-    # Real Part
-    plt.stem(x, np.real(complex_signal),
-             linefmt='b-', markerfmt='bo', basefmt=" ")
+#     # Imaginary Part
+#     plt.stem(x, np.imag(complex_signal),
+#              linefmt='r-', markerfmt='ro', basefmt=" ")
 
-    # Imaginary Part
-    plt.stem(x, np.imag(complex_signal),
-             linefmt='r-', markerfmt='ro', basefmt=" ")
+#     # Data Labels
+#     for i in range(len(complex_signal)):
+#         plt.text(x[i], np.real(complex_signal[i]) + 0.8,
+#                  f"{np.real(complex_signal[i]):.1f}",
+#                  color='blue', ha='center', fontsize=8)
 
-    # Data Labels
-    for i in range(len(complex_signal)):
-        plt.text(x[i], np.real(complex_signal[i]) + 0.8,
-                 f"{np.real(complex_signal[i]):.1f}",
-                 color='blue', ha='center', fontsize=8)
+#         plt.text(x[i], np.imag(complex_signal[i]) - 1.2,
+#                  f"{np.imag(complex_signal[i]):.1f}",
+#                  color='red', ha='center', fontsize=8)
 
-        plt.text(x[i], np.imag(complex_signal[i]) - 1.2,
-                 f"{np.imag(complex_signal[i]):.1f}",
-                 color='red', ha='center', fontsize=8)
+#     plt.title("Complex FFT Signal (Real & Imaginary)")
+#     plt.xlabel("Frequency Index")
+#     plt.ylabel("Amplitude")
+#     plt.legend(["Real", "Imaginary"])
+#     plt.grid()
+#     plt.show()
 
-    plt.title("Complex FFT Signal (Real & Imaginary)")
-    plt.xlabel("Frequency Index")
-    plt.ylabel("Amplitude")
-    plt.legend(["Real", "Imaginary"])
-    plt.grid()
-    plt.show()
+# def plot_reconstructed_signal(reconstructed_signal):
+#     plt.figure(figsize=(8,4))
+#     plt.stem(np.real(reconstructed_signal))
+#     plt.title("Reconstructed Signal using IFFT")
+#     plt.xlabel("Sample Index")
+#     plt.ylabel("Amplitude")
+#     plt.grid()
+#     plt.show()
 
-def plot_reconstructed_signal(reconstructed_signal):
-    plt.figure(figsize=(8,4))
-    plt.stem(np.real(reconstructed_signal))
-    plt.title("Reconstructed Signal using IFFT")
-    plt.xlabel("Sample Index")
-    plt.ylabel("Amplitude")
-    plt.grid()
-    plt.show()
+# # ------------------ Function Calls ------------------
 
-# ------------------ Function Calls ------------------
+# plot_original_signal(signal)
+# plot_magnitude_spectrum(magnitude_spectrum)
+# plot_phase_spectrum(phase_spectrum)
+# plot_complex_signal(fft_result)
+# plot_reconstructed_signal(reconstructed_signal)
 
-plot_original_signal(signal)
-plot_magnitude_spectrum(magnitude_spectrum)
-plot_phase_spectrum(phase_spectrum)
-plot_complex_signal(fft_result)
-plot_reconstructed_signal(reconstructed_signal)
+# ------------------ All Plots in One Figure ------------------
+plt.figure(figsize=(12, 10))
 
+# 1. Original Signal
+plt.subplot(3, 2, 1)
+plt.stem(signal)
+plt.title("Original Signal")
+plt.xlabel("Sample Index")
+plt.ylabel("Amplitude")
+plt.grid()
+
+# 2. Magnitude Spectrum
+plt.subplot(3, 2, 2)
+plt.stem(magnitude_spectrum)
+plt.title("Magnitude Spectrum")
+plt.xlabel("Frequency Index")
+plt.ylabel("Magnitude")
+plt.grid()
+
+# 3. Phase Spectrum
+plt.subplot(3, 2, 3)
+plt.stem(phase_spectrum)
+plt.title("Phase Spectrum")
+plt.xlabel("Frequency Index")
+plt.ylabel("Phase (Radians)")
+plt.grid()
+
+# 4. Complex FFT Signal
+x = np.arange(len(fft_result))
+
+plt.subplot(3, 2, 4)
+
+plt.stem(x, np.real(fft_result),
+         linefmt='b-', markerfmt='bo', basefmt=" ")
+
+plt.stem(x, np.imag(fft_result),
+         linefmt='r-', markerfmt='ro', basefmt=" ")
+
+for i in range(len(fft_result)):
+    plt.text(x[i], np.real(fft_result[i]) + 0.8,
+             f"{np.real(fft_result[i]):.1f}",
+             color='blue', ha='center', fontsize=8)
+
+    plt.text(x[i], np.imag(fft_result[i]) - 1.2,
+             f"{np.imag(fft_result[i]):.1f}",
+             color='red', ha='center', fontsize=8)
+
+plt.title("Complex FFT Signal")
+plt.xlabel("Frequency Index")
+plt.ylabel("Amplitude")
+plt.legend(["Real", "Imaginary"])
+plt.grid()
+
+# 5. Reconstructed Signal
+plt.subplot(3, 2, 5)
+plt.stem(np.real(reconstructed_signal))
+plt.title("Reconstructed Signal using IFFT")
+plt.xlabel("Sample Index")
+plt.ylabel("Amplitude")
+plt.grid()
+
+plt.tight_layout()
+plt.show()
